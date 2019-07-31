@@ -5,15 +5,17 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QMenu>
+#include <QString>
+#include <QHBoxLayout>
 
 
-class Widget : public QWidget
+class QTitleBarDemo : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = 0);
-    ~Widget();
+    QTitleBarDemo(QWidget *parent = 0);
+    ~QTitleBarDemo();
 
 public:
 signals:
@@ -22,6 +24,12 @@ signals:
     void signalMaxButtonClicked();    //点击最大化信号
     void signalCloseButtonClicked();    //点击关闭信号
 
+private:
+    void paintEvent(QPaintEvent *);     //重写painEvent
+
+    void initMenu();    //初始化菜单
+    void initElements();    //初始化控件元素
+    void initConnections(); //初始化信号槽
 
 private:
     QLabel *titleIconLabel;  //图标
