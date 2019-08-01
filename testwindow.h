@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "QTitleBarDemo.h"
+
 namespace Ui {
 class TestWindow;
 }
@@ -17,6 +19,8 @@ public:
 
 private:
     Ui::TestWindow *ui;
+
+    QTitleBarDemo *myTitleBar;
 };
 
 #endif // TESTWINDOW_H
