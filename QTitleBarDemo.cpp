@@ -27,10 +27,11 @@ void QTitleBarDemo::initMenu(){
     menu->addAction(userAction);
     menu->addAction(settingAction);
     menu->addAction(aboutAction);
+
 }
 
 /**
- * @brief 初始化标题栏控件元素
+ * @brief 初始化(new)标题栏控件元素
  */
 void QTitleBarDemo::initElements(){
     //图标
@@ -65,4 +66,53 @@ void QTitleBarDemo::initElements(){
     layout->addWidget(closePushButton);
 
     titleText->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);   //水平方向延伸、垂直方向固定
+}
+
+void QTitleBarDemo::paintEvent(QPaintEvent *even){
+    setStyleSheet("color:red;");
+    titleText->setText("text");
+    titleIconLabel->setText("icon");
+    minPushButton->setText("min");
+    restorePushButton->setText("restore");
+    maxPushButton->setText("max");
+    closePushButton->setText("clsoe");
+}
+
+
+/**
+ * @brief 设置标题栏图标 图标大小
+ * @param pix
+ * @param size
+ */
+void QTitleBarDemo::setTitleBarIcon(QPixmap &pix, QSize size){
+    titleIconLabel->setPixmap(pix.scaled(size));
+}
+
+/**
+ * @brief 设置标题文本
+ * @param text
+ */
+void QTitleBarDemo::setTitleBarText(QString text){
+    titleText->setText(text);
+}
+
+void QTitleBarDemo::setTitleBarWidth(int width){
+    this->setFixedWidth(width);
+}
+
+void QTitleBarDemo::setTitleBarHeight(int height){
+    this->setFixedHeight(height);
+}
+
+void QTitleBarDemo::setTitleBarStyleSheet(QString path){
+    QFile file(path);
+    file.open(QFile::ReadOnly);
+    //打开失败 发出信号
+    if(file.isOpen()){
+        emit signalStyleSheetLoadFail();
+        return;
+    }
+    QString styleSheet = this->styleSheet();
+    styleSheet += QString(file.readAll());
+    this->setStyleSheet(styleSheet);
 }

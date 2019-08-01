@@ -7,6 +7,9 @@
 #include <QMenu>
 #include <QString>
 #include <QHBoxLayout>
+#include <QPixmap>
+#include <QSize>
+#include <QFile>
 
 
 class QTitleBarDemo : public QWidget
@@ -17,12 +20,25 @@ public:
     QTitleBarDemo(QWidget *parent = 0);
     ~QTitleBarDemo();
 
+    //设置图标 以及大小
+    void setTitleBarIcon(QPixmap &pix, QSize size = QSize(25, 25));
+    //设置标题文本
+    void setTitleBarText(QString text);
+    //设置标题栏高度 宽度
+    void setTitleBarHeight(int height);
+    void setTitleBarWidth(int width);
+
+    //设置样式
+    void setTitleBarStyleSheet(QString path);
+
 public:
 signals:
     void signalMinButtonClicked();    //点击最小化信号
     void signalRestoreButtonClicked();    //点击还原信号
     void signalMaxButtonClicked();    //点击最大化信号
     void signalCloseButtonClicked();    //点击关闭信号
+
+    void signalStyleSheetLoadFail();    //样式表加载失败信号
 
 private:
     void paintEvent(QPaintEvent *);     //重写painEvent
