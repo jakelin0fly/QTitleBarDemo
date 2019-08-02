@@ -10,6 +10,7 @@
 #include <QPixmap>
 #include <QSize>
 #include <QFile>
+#include <QMouseEvent>
 
 
 class QTitleBarDemo : public QWidget
@@ -30,6 +31,11 @@ public:
 
     //设置样式
     void setTitleBarStyleSheet(QString path);
+
+//重写鼠标响应事件
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
 public:
 signals:
@@ -64,6 +70,7 @@ private:
     QPoint restorePoint;    //最大化前窗口位置
     QSize restoreSize;  //最大化前窗口大小
 
+    bool mouseIsPress = false;
     QPoint mouseMoveStartPoint;  //鼠标点击移动起始位置
 
 };

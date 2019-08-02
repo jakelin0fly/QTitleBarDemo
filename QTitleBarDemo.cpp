@@ -68,6 +68,16 @@ void QTitleBarDemo::initElements(){
     titleText->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);   //水平方向延伸、垂直方向固定
 }
 
+/**
+ * @brief 初始化标题栏信号槽
+ */
+void QTitleBarDemo::initConnections(){
+    connect(minPushButton, SIGNAL(clicked()), parent(), SLOT(signalMinButtonClicked()));
+    connect(restorePushButton, SIGNAL(clicked()), parent(), SLOT(signalRestoreButtonClicked()));
+    connect(maxPushButton, SIGNAL(clicked()), parent(), SLOT(signalMaxButtonClicked()));
+    connect(closePushButton, SIGNAL(clicked()), parent(), SLOT(signalCloseButtonClicked()));
+}
+
 void QTitleBarDemo::paintEvent(QPaintEvent *even){
     setStyleSheet("color:red;");
     titleText->setText("text");
@@ -78,6 +88,29 @@ void QTitleBarDemo::paintEvent(QPaintEvent *even){
     closePushButton->setText("clsoe");
 }
 
+
+void QTitleBarDemo::mousePressEvent(QMouseEvent *event){
+    mouseIsPress = true;
+    mouseMoveStartPoint = event->globalPos();
+
+    return QWidget::mousePressEvent(event);
+}
+
+void QTitleBarDemo::mouseMoveEvent(QMouseEvent *event){
+    //若鼠标左键处于点击状态 移动父窗体
+    if(mouseIsPress){
+         QPoint movePoint = event->globalPos() - mouseMoveStartPoint;
+         QPoint widgetPos = this->parentWidget()->pos();
+         mouseMoveStartPoint = event->globalPos();
+         this->parentWidget()->move(widgetPos.x() + movePoint.x(), widgetPos.y() + movePoint.y());
+    }
+}
+
+void QTitleBarDemo::mouseReleaseEvent(QMouseEvent *event){
+    mouseIsPress = false;
+
+    return QWidget::mouseReleaseEvent(event);
+}
 
 /**
  * @brief 设置标题栏图标 图标大小
