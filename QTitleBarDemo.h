@@ -46,6 +46,13 @@ signals:
 
     void signalStyleSheetLoadFail();    //样式表加载失败信号
 
+private slots:
+    void minButtonClicked();
+    void restoreButtonClicked();
+    void maxButtonClicked();
+    void closeButtonClicked();
+
+
 private:
     void paintEvent(QPaintEvent *);     //重写painEvent
 
@@ -67,6 +74,7 @@ private:
     QPushButton *maxPushButton;     //最大化
     QPushButton *closePushButton;   //关闭
 
+    bool isMaxed = false;
     QPoint restorePoint;    //最大化前窗口位置
     QSize restoreSize;  //最大化前窗口大小
 

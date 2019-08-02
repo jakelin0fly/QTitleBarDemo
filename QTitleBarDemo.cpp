@@ -72,10 +72,10 @@ void QTitleBarDemo::initElements(){
  * @brief 初始化标题栏信号槽
  */
 void QTitleBarDemo::initConnections(){
-    connect(minPushButton, SIGNAL(clicked()), parent(), SLOT(signalMinButtonClicked()));
-    connect(restorePushButton, SIGNAL(clicked()), parent(), SLOT(signalRestoreButtonClicked()));
-    connect(maxPushButton, SIGNAL(clicked()), parent(), SLOT(signalMaxButtonClicked()));
-    connect(closePushButton, SIGNAL(clicked()), parent(), SLOT(signalCloseButtonClicked()));
+    connect(minPushButton, SIGNAL(clicked()), parent(), SLOT(minButtonClicked()));
+    connect(restorePushButton, SIGNAL(clicked()), parent(), SLOT(restoreButtonClicked()));
+    connect(maxPushButton, SIGNAL(clicked()), parent(), SLOT(maxButtonClicked()));
+    connect(closePushButton, SIGNAL(clicked()), parent(), SLOT(closeButtonClicked()));
 }
 
 void QTitleBarDemo::paintEvent(QPaintEvent *even){
@@ -150,3 +150,22 @@ void QTitleBarDemo::setTitleBarStyleSheet(QString path){
     this->setStyleSheet(styleSheet);
 }
 
+
+/************************  slots  **********************************/
+void QTitleBarDemo::minButtonClicked(){
+    emit signalMinButtonClicked();
+}
+
+void QTitleBarDemo::restoreButtonClicked(){
+    isMaxed = false;
+    emit signalRestoreButtonClicked();
+}
+
+void QTitleBarDemo::maxButtonClicked(){
+    isMaxed = true;
+    emit signalMaxButtonClicked();
+}
+
+void QTitleBarDemo::closeButtonClicked(){
+    emit signalCloseButtonClicked();
+}
